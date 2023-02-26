@@ -21,12 +21,13 @@ export class AuthService {
     try {
       const user = this.userRepo.create(credentials);
       await user.save();
-      const payload = { username: user.username };
+      const payload = { username: user.email };
+
       const token = this.jwtService.sign(payload);
       return { user: { ...user.toJSON(), token } };
     } catch (err) {
       if (err.code === '23505') {
-        throw new ConflictException('Username has already been taken');
+        throw new ConflictException('This email has already registered');
       }
       throw new InternalServerErrorException();
     }

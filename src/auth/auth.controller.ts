@@ -6,13 +6,13 @@ import { RegisterDTO, LoginDTO } from 'src/models/user.dto';
 export class AuthController {
   constructor(private authService: AuthService) {}
 
-  @Post()
-  register(@Body(ValidationPipe) credentials: { user: RegisterDTO }) {
-    return this.authService.register(credentials.user);
+  @Post('/register')
+  register(@Body(ValidationPipe) user: RegisterDTO) {
+    return this.authService.register(user);
   }
 
   @Post('/login')
-  login(@Body(ValidationPipe) credentials: { user: LoginDTO }) {
-    return this.authService.login(credentials.user);
+  login(@Body(ValidationPipe) user: LoginDTO) {
+    return this.authService.login(user);
   }
 }

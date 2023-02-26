@@ -1,26 +1,26 @@
-import { IsString, IsOptional } from 'class-validator';
+import { IsString, IsOptional, IsEmail } from 'class-validator';
 
-export class CreateArticleDTO {
+export class CreateBookDTO {
   @IsString()
   title: string;
 
   @IsString()
-  auth: string;
+  author: string;
 
   @IsString()
   ISBN: number;
 }
 
-export class UpdateArticleDTO {
+export class UpdateBookDTO {
   @IsString()
   @IsOptional()
   title: string;
 
   @IsString()
   @IsOptional()
-  auth: string;
+  author: string;
 
   @IsString()
   @IsOptional()
-  ISBN: string;
+  ISBN: number;
 }

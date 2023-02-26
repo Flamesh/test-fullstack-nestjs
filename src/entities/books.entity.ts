@@ -3,6 +3,7 @@ import { classToPlain } from 'class-transformer';
 import * as slugify from 'slug';
 import { AbstractEntity } from './abstract-entity';
 import { UserEntity } from './users.entity';
+import { BookModule } from 'src/books/books.module';
 
 @Entity('books')
 export class BooksEntity extends AbstractEntity {
@@ -16,7 +17,7 @@ export class BooksEntity extends AbstractEntity {
   author: string;
 
   @Column()
-  ISBN: string;
+  ISBN: number;
 
   @ManyToOne((type) => UserEntity, (user) => user.books, { eager: true })
   user: UserEntity;

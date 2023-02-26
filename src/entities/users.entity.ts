@@ -9,6 +9,7 @@ import { BooksEntity } from './books.entity';
 export class UserEntity extends AbstractEntity {
   @Column()
   @IsEmail()
+  @Column({ unique: true })
   email: string;
 
   @Column({ unique: true })
@@ -18,7 +19,7 @@ export class UserEntity extends AbstractEntity {
   @Exclude()
   password: string;
 
-  @OneToMany((type) => BooksEntity, (article) => article)
+  @OneToMany((type) => BooksEntity, (book) => book)
   books: BooksEntity[];
 
   @BeforeInsert()
@@ -32,11 +33,5 @@ export class UserEntity extends AbstractEntity {
 
   toJSON() {
     return classToPlain(this);
-  }
-
-  toProfile() {
-    const profile: any = this.toJSON();
-    delete profile.followers;
-    return { ...profile };
   }
 }
