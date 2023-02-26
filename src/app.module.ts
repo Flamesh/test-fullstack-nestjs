@@ -4,6 +4,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { DatabaseConnectionService } from './database.services';
 import { AuthModule } from './auth/auth.module';
+import { BookModule } from './books/books.module';
 
 @Module({
   imports: [
@@ -11,6 +12,7 @@ import { AuthModule } from './auth/auth.module';
       useClass: DatabaseConnectionService,
     }),
     AuthModule,
+    BookModule,
   ],
   controllers: [AppController],
   providers: [AppService],

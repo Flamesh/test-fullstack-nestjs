@@ -47,4 +47,7 @@ export class AuthService {
       throw new UnauthorizedException('Invalid credentials');
     }
   }
+  async getUser(user: UserEntity) {
+    return user;
+  }
 }

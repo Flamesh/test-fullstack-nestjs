@@ -13,6 +13,10 @@ export class BooksService {
     @InjectRepository(UserEntity) private userRepo: Repository<UserEntity>,
   ) {}
 
+  async findAll() {
+    return await this.bookRepo.find();
+  }
+
   findBySlug(slug: string) {
     return this.bookRepo.findOne({
       where: { slug },

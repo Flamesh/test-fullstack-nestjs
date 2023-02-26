@@ -20,6 +20,13 @@ import { OptionalAuthGuard } from 'src/auth/optional-auth.gaurd';
 export class BooksController {
   constructor(private bookService: BooksService) {}
 
+  @Get('')
+  @UseGuards(AuthGuard())
+  async findAll() {
+    const books = await this.bookService.findAll();
+    return { books };
+  }
+
   @Get('/:slug')
   @UseGuards(new OptionalAuthGuard())
   async findBySlug(@Param('slug') slug: string) {
