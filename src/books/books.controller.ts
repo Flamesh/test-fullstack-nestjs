@@ -21,7 +21,7 @@ export class BooksController {
   constructor(private bookService: BooksService) {}
 
   @Get('')
-  @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard(''))
   async findAll() {
     const books = await this.bookService.findAll();
     return { books };
@@ -38,9 +38,9 @@ export class BooksController {
   @UseGuards(AuthGuard())
   async createBook(
     @User() user: UserEntity,
-    @Body(ValidationPipe) data: { book: CreateBookDTO },
+    @Body(ValidationPipe) data: CreateBookDTO,
   ) {
-    const book = await this.bookService.createBook(user, data.book);
+    const book = await this.bookService.createBook(user, data);
     return { book };
   }
 

@@ -27,9 +27,11 @@ export class BooksService {
   }
 
   async createBook(user: UserEntity, data: CreateBookDTO) {
+    console.log(data);
     const book = this.bookRepo.create(data);
     book.user = user;
     const { slug } = await book.save();
+
     return (await this.findBySlug(slug)).toJSON();
   }
 

@@ -19,5 +19,5 @@ export class RegisterDTO extends LoginDTO {
 }
 
 export interface AuthPayLoad {
-  username: string;
+  email: string;
 }

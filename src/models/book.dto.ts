@@ -1,4 +1,4 @@
-import { IsString, IsOptional } from 'class-validator';
+import { IsString, IsOptional, IsNumber } from 'class-validator';
 
 export class CreateBookDTO {
   @IsString()
@@ -7,7 +7,7 @@ export class CreateBookDTO {
   @IsString()
   author: string;
 
-  @IsString()
+  @IsNumber()
   ISBN: number;
 }
 
