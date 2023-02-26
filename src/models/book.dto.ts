@@ -20,7 +20,7 @@ export class UpdateBookDTO {
   @IsOptional()
   author: string;
 
-  @IsString()
+  @IsNumber()
   @IsOptional()
   ISBN: number;
 }

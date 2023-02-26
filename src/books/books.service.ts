@@ -14,7 +14,7 @@ export class BooksService {
   ) {}
 
   async findAll() {
-    return await this.bookRepo.find();
+    return await this.bookRepo.find({ order: { created: 'ASC' } });
   }
 
   findBySlug(slug: string) {
@@ -22,12 +22,11 @@ export class BooksService {
       where: { slug },
     });
   }
-  private ensureOwnership(user: UserEntity, article: BooksEntity): boolean {
-    return article.id === user.id;
+  private ensureOwnership(user: UserEntity, book: BooksEntity): boolean {
+    return book.user.id === user.id;
   }
 
   async createBook(user: UserEntity, data: CreateBookDTO) {
-    console.log(data);
     const book = this.bookRepo.create(data);
     book.user = user;
     const { slug } = await book.save();
@@ -44,11 +43,13 @@ export class BooksService {
     return book.toJSON();
   }
 
-  async deleteBook(slug: string, user: UserEntity) {
-    const book = await this.findBySlug(slug);
+  async deleteBook(slug: { slug: string }, user: UserEntity) {
+    const book = await this.findBySlug(slug.slug);
+
     if (!this.ensureOwnership(user, book)) {
       throw new UnauthorizedException();
     }
     await this.bookRepo.remove(book);
+    return true;
   }
 }

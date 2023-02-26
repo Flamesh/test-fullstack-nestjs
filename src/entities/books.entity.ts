@@ -24,8 +24,6 @@ export class BooksEntity extends AbstractEntity {
 
   @BeforeInsert()
   generateSlug() {
-    console.log('generateSlug');
-    console.log(this.title);
     this.slug =
       slugify(this.title, { lower: true }) +
       '-' +

@@ -49,16 +49,17 @@ export class BooksController {
   async updateBook(
     @Param('slug') slug: string,
     @User() user: UserEntity,
-    @Body(ValidationPipe) data: { book: UpdateBookDTO },
+    @Body(ValidationPipe) data: UpdateBookDTO,
   ) {
-    const book = await this.bookService.updateBook(slug, user, data.book);
+    const book = await this.bookService.updateBook(slug, user, data);
     return { book };
   }
 
   @Delete('/:slug')
   @UseGuards(AuthGuard())
-  async deleteBook(@Param() slug: string, @User() user: UserEntity) {
+  async deleteBook(@Param() slug: { slug: string }, @User() user: UserEntity) {
     const book = await this.bookService.deleteBook(slug, user);
+    console.log(book);
     return { book };
   }
 }
