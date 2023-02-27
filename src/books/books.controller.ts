@@ -59,7 +59,6 @@ export class BooksController {
   @UseGuards(AuthGuard())
   async deleteBook(@Param() slug: { slug: string }, @User() user: UserEntity) {
     const book = await this.bookService.deleteBook(slug, user);
-    console.log(book);
     return { book };
   }
 }
