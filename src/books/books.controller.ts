@@ -22,8 +22,8 @@ export class BooksController {
 
   @Get('')
   @UseGuards(AuthGuard(''))
-  async findAll() {
-    const books = await this.bookService.findAll();
+  async findAll(@User() user: UserEntity) {
+    const books = await this.bookService.findAll(user);
     return { books };
   }
 

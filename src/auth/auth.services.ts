@@ -27,7 +27,10 @@ export class AuthService {
       return { user: { ...user.toJSON(), token } };
     } catch (err) {
       if (err.code === '23505') {
-        throw new ConflictException('This email has already registered');
+        if (err.detail.includes('email')) {
+          throw new ConflictException('This email has already registered');
+        }
+        throw new ConflictException('This username has already registered');
       }
       throw new InternalServerErrorException();
     }
@@ -36,11 +39,12 @@ export class AuthService {
   async login({ email, password }: LoginDTO) {
     try {
       const user = await this.userRepo.findOne({ where: { email } });
+
       const isValid = await user.comparePassword(password);
       if (!isValid) {
         throw new UnauthorizedException('Invalid credentials');
       }
-      const payload = { username: user.username };
+      const payload = { email: user.email };
       const token = this.jwtService.sign(payload);
       return { user: { ...user.toJSON(), token } };
     } catch (err) {

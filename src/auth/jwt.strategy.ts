@@ -21,7 +21,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     const { email } = payload;
     const user = this.userRepo.find({ where: { email } });
     if (!user) {
-      console.log('unauthorized');
       throw new UnauthorizedException();
     }
     return user;

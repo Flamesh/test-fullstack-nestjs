@@ -1,3 +1,10 @@
+## Introduce
+
+This is backend for testing from 3IPK team. This backend having functions:
+
+- Authentication: login, register, logout, refresh token
+- Storage books: create, update, delete, get all, get by slug
+
 ## Installation
 
 ```bash
